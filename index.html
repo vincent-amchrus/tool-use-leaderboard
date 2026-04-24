@@ -109,7 +109,8 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
   .section-header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--divider); }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; letter-spacing: 0.03em; color: var(--brown-accent); }
+  .section-title { font-family: 'Quicksand', serif; font-size: 32px; font-weight: 700; letter-spacing: 0.03em; color: var(--brown-accent); }
+  /* .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; letter-spacing: 0.03em; color: var(--brown-accent); } */
   .section-meta { font-size: 14px; font-weight: 600; color: var(--text-dim); margin-top: 10px; letter-spacing: 0.05em; font-family: 'Quicksand', sans-serif; }
   .section-meta a { color: var(--gold); text-decoration: none; opacity: 0.9; }
 
@@ -179,7 +180,7 @@
 </head>
 <body>
 <header class="header">
-  <div class="header-top"><div class="logo-area"><div class="logo-gem"></div><span class="logo-text">SLP Intelligence · Benchmark Report</span></div></div>
+  <!-- <div class="header-top"><div class="logo-area"><div class="logo-gem"></div><span class="logo-text">SLP Intelligence · Benchmark Report</span></div></div> -->
   <h1 class="page-title">Tool use benchmark,<br><span>Car & Robot action agent</span></h1>
   <p class="subtitle">Function Calling · Tool Selection · Argument Accuracy · 2025</p>
   <div class="legend"><div class="legend-item"><div class="legend-dot legend-best"></div> Best value</div><div class="legend-item"><div class="legend-dot legend-second"></div> 2nd best</div><div class="legend-item"><div class="legend-dot legend-senlm"></div> SenLM (in-flow model)</div></div>
@@ -189,7 +190,7 @@
   <button class="tab-btn active" onclick="switchTab('vivi1k')">Vivi Smart 1k</button>
   <button class="tab-btn" onclick="switchTab('vivi6k')">Vivi Smart 6k4</button>
   <button class="tab-btn" onclick="switchTab('viviglob')">Vivi Global 1k6</button>
-  <button class="tab-btn" onclick="switchTab('chart')">Visual Chart</button>
+  <!-- <button class="tab-btn" onclick="switchTab('chart')">Visual Chart</button> -->
 </nav>
 
 <main class="main">
@@ -208,7 +209,7 @@
     <div class="table-wrap"><table><thead><tr><th>Model</th><th>Variant</th><th class="sortable" onclick="sortGlob('overall')">Overall ↕</th><th class="sortable" onclick="sortGlob('tool')">Tool-Only ↕</th><th class="sortable" onclick="sortGlob('nocall')">No-Call ↕</th><th class="sortable" onclick="sortGlob('arg')">Argument ↕</th></tr></thead><tbody id="tableglob-body"></tbody></table></div>
   </div>
 
-  <div id="tab-chart" class="tab-panel">
+  <!-- <div id="tab-chart" class="tab-panel">
     <div class="section-header"><div class="section-title">Visual Comparison</div></div>
     <div class="metric-selector" id="chart-dataset-sel">
       <button class="metric-btn active" onclick="setChartDataset('1k','single')">Vivi 1k · Single-turn</button>
@@ -219,7 +220,7 @@
       <button class="metric-btn" onclick="setChartDataset('glob','arg')">Global · Argument</button>
     </div>
     <div class="chart-section"><div class="chart-title" id="chart-label">Vivi Smart 1k — Single-turn Accuracy</div><div class="bar-list" id="bar-chart"></div></div>
-  </div>
+  </div> -->
 </main>
 
 <script>
