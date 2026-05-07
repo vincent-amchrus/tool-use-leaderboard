@@ -1,22 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SenLM — Function Calling Benchmark</title>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="./static/style/style.css">
 </head>
+
 <body>
 
   <header class="header">
+    <!-- THEME TOGGLE BUTTON -->
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
+      <!-- Sun Icon (for Dark Mode) -->
+      <svg class="sun-icon" viewBox="0 0 24 24" style="display: none;">
+        <path
+          d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M12 1V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M12 21V23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M4.22 4.22L5.64 5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M18.36 18.36L19.78 19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M1 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M4.22 19.78L5.64 18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+      <!-- Moon Icon (for Light Mode) -->
+      <svg class="moon-icon" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+
     <div class="header-eyebrow">
       <span class="eyebrow-dot"></span>
       Small Language Models · Built for Production
     </div>
 
     <div class="brand-lockup">
-      <span class="brand-name">SenLm</span>
+      <!-- Add a zero-width space or invisible spacer if needed, but usually just changing CSS is enough -->
+      <span class="brand-name">SenLM '</span>
       <span class="brand-tagline-big">
         <strong>Ultra-fast, enterprise accuracy.</strong><br>
         Production-ready function calling at a fraction of the cost.
@@ -64,8 +96,8 @@
   <main class="main">
     <div id="tab-vivi1k" class="tab-panel active">
       <div class="section-header">
-        <div class="section-title">Vivi thông minh — 1k Sample</div>
-        <div class="section-meta">Bản mới nhất tháng 3 · 14 tools · Click headers to sort</div>
+        <div class="section-title">Vivi smart — 1k Sample</div>
+        <div class="section-meta">Input 14 tools, March 2026 · Click headers to sort</div>
       </div>
       <div class="table-wrap">
         <table>
@@ -84,8 +116,8 @@
 
     <div id="tab-vivi6k" class="tab-panel">
       <div class="section-header">
-        <div class="section-title">Vivi thông minh — 6k4 Sample</div>
-        <div class="section-meta">Bản input 8 tools tháng 2</div>
+        <div class="section-title">Vivi smart — 6k4 Sample</div>
+        <div class="section-meta">Input 8 tools, February 2026</div>
       </div>
       <div class="table-wrap">
         <table>
@@ -126,4 +158,5 @@
 
   <script src="./static/js/app.js"></script>
 </body>
+
 </html>
