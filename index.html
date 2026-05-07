@@ -1,42 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tool Use - SLP Benchmark — Car assistant - Robot </title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-    rel="stylesheet">
+  <title>SenLM — Function Calling Benchmark</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./static/style/style.css">
 </head>
-
 <body>
+
   <header class="header">
-  <h1 class="page-title">SenLM Function Calling<br><span>Fast · Accurate · Affordable</span></h1>
-  <p class="subtitle">Production-ready tool use at ~100× lower cost · Real-time response · Enterprise accuracy</p>
-  <div class="legend">
-    <div class="legend-item">
-      <div class="legend-dot legend-best"></div> Best value
+    <div class="header-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Small Language Models · Built for Production
     </div>
-    <div class="legend-item">
-      <div class="legend-dot legend-second"></div> 2nd best
+
+    <div class="brand-lockup">
+      <span class="brand-name">SenLM</span>
+      <span class="brand-tagline-big">
+        <strong>Ultra-fast, enterprise accuracy.</strong><br>
+        Production-ready function calling at a fraction of the cost.
+      </span>
     </div>
-  </div>
-</header>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value"><span>~100</span>×</span>
+        <span class="hero-stat-label">Lower cost</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value"><span>93</span>%+</span>
+        <span class="hero-stat-label">Benchmark accuracy</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value"><span>0.8</span>B</span>
+        <span class="hero-stat-label">Smallest model</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value"><span>14</span></span>
+        <span class="hero-stat-label">Tool types</span>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="benchmark-label">Function Calling Leaderboard</div>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-dot legend-best"></div> Best
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot legend-second"></div> 2nd best
+        </div>
+      </div>
+    </div>
+  </header>
 
   <nav class="nav-tabs">
     <button class="tab-btn active" onclick="switchTab('vivi1k')">Vivi Smart 1k</button>
     <button class="tab-btn" onclick="switchTab('vivi6k')">Vivi Smart 6k4</button>
     <button class="tab-btn" onclick="switchTab('viviglob')">Vivi Global 1k6</button>
-    <!-- <button class="tab-btn" onclick="switchTab('chart')">Visual Chart</button> -->
   </nav>
 
   <main class="main">
     <div id="tab-vivi1k" class="tab-panel active">
       <div class="section-header">
-        <div class="section-title">📊 Vivi thông minh — 1k Sample</div>
-        <div class="section-meta">Bản mới nhất tháng 3 · 14 tools · Click column headers to sort</div>
+        <div class="section-title">Vivi thông minh — 1k Sample</div>
+        <div class="section-meta">Bản mới nhất tháng 3 · 14 tools · Click headers to sort</div>
       </div>
       <div class="table-wrap">
         <table>
@@ -53,10 +82,9 @@
       </div>
     </div>
 
-    <!-- Vivi Smart 6k4 Table -->
     <div id="tab-vivi6k" class="tab-panel">
       <div class="section-header">
-        <div class="section-title">📊 Vivi thông minh — 6k4 Sample</div>
+        <div class="section-title">Vivi thông minh — 6k4 Sample</div>
         <div class="section-meta">Bản input 8 tools tháng 2</div>
       </div>
       <div class="table-wrap">
@@ -75,10 +103,9 @@
       </div>
     </div>
 
-    <!-- Vivi Global English Table -->
     <div id="tab-viviglob" class="tab-panel">
       <div class="section-header">
-        <div class="section-title">📊 Vivi Global English — 1k6</div>
+        <div class="section-title">Vivi Global English — 1k6</div>
       </div>
       <div class="table-wrap">
         <table>
@@ -99,5 +126,4 @@
 
   <script src="./static/js/app.js"></script>
 </body>
-
 </html>
