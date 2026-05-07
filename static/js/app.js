@@ -1,18 +1,18 @@
 const data1k = [
-    { model:'SenFC 0.8B', single:89.49, noasst:90.76, full:92.41, senlm:false },
-    { model:'SenFC 4B',   single:81.23, noasst:9.73,  full:90.08, senlm:false },
+    { model:'Sen-FC 0.8B', single:89.49, noasst:90.76, full:92.41, senlm:false },
+    { model:'Sen-FC 4B',   single:81.23, noasst:9.73,  full:90.08, senlm:false },
     { model:'GPT 4.1',    single:65.08, noasst:72.00, full:null,   senlm:false }
 ];
 
 const data6k = [
-    { model:'SenFC 0.8B', overall:91.43, tool:85.98, nocall:96.86, arg:42.82, senlm:false },
-    { model:'SenFC 4B',   overall:91.94, tool:87.32, nocall:96.55, arg:56.04, senlm:false },
+    { model:'Sen-FC 0.8B', overall:91.43, tool:85.98, nocall:96.86, arg:42.82, senlm:false },
+    { model:'Sen-FC 4B',   overall:91.94, tool:87.32, nocall:96.55, arg:56.04, senlm:false },
     { model:'GPT-4.1',    overall:93.46, tool:89.64, nocall:97.28, arg:44.47, senlm:false }
 ];
 
 const dataGlob = [
-    { model:'SenFC 0.8B', overall:86.68, tool:95.02, nocall:32.09, arg:48.12, senlm:false },
-    { model:'SenFC 4B',   overall:90.38, tool:90.19, nocall:91.63, arg:57.78, senlm:false },
+    { model:'Sen-FC 0.8B', overall:86.68, tool:95.02, nocall:32.09, arg:48.12, senlm:false },
+    { model:'Sen-FC 4B',   overall:90.38, tool:90.19, nocall:91.63, arg:57.78, senlm:false },
     { model:'GPT-4.1',    overall:86.74, tool:89.41, nocall:69.30, arg:51.10, senlm:false }
 ];
 
@@ -58,8 +58,23 @@ function sortGlob(k) {
     renderGlob();
 }
 
+function getRankBadge(rank) {
+    if (rank === 1) {
+        return `<span class="rank-badge rank-1">1</span>`;
+    } else if (rank === 2) {
+        return `<span class="rank-badge rank-2">2</span>`;
+    } else if (rank === 3) {
+        return `<span class="rank-badge rank-3">3</span>`;
+    } else {
+        // For 4th place and below, use a subtle gray badge
+        return `<span class="rank-badge rank-other">${rank}</span>`;
+    }
+}
+
 function renderRows(data, state, keys, tbodyId) {
     const bests  = keys.map(k => getBestSecond(data, k));
+    
+    // Sort data based on current state
     const sorted = [...data].sort((a, b) => {
         const av = a[state.key], bv = b[state.key];
         if (av == null) return  1;
@@ -68,8 +83,12 @@ function renderRows(data, state, keys, tbodyId) {
     });
 
     document.getElementById(tbodyId).innerHTML = sorted.map((r, i) => {
+        const rank = i + 1; // Rank is 1-based index
         const mcls    = r.senlm ? 'td-model senlm' : 'td-model';
-        const rankBadge = i === 0 ? `<span class="rank-badge">1</span>` : '';
+        
+        // Get the appropriate badge for this rank
+        const rankBadge = getRankBadge(rank);
+        
         return `<tr>
             <td><div class="${mcls}">${rankBadge}${r.model}</div></td>
             ${keys.map((k, ki) => `<td>${fmt(r[k], bests[ki].best, bests[ki].second)}</td>`).join('')}

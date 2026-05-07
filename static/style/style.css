@@ -551,3 +551,50 @@ tbody tr:first-child .td-model {
   th, td { padding: 12px 16px; font-size: 13px; }
   .val { min-width: 64px; padding: 4px 10px; font-size: 12px; }
 }
+
+/* RANK BADGES */
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; 
+  height: 24px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-right: 8px; /* Space between badge and model name */
+  transition: all 0.2s ease;
+}
+
+/* 1st Place: Primary Accent (Bright & Glowing) */
+.rank-1 {
+  background: var(--accent); 
+  color: #ffffff;
+  box-shadow: 0 0 10px var(--accent-soft);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* 2nd Place: Faded / Lighter Version of Accent */
+.rank-2 {
+  /* Uses the 'mid' variable which is a transparent/lighter version of accent */
+  background: var(--accent-mid); 
+  color: var(--accent); /* Text matches the accent color */
+  border: 1px solid var(--accent-soft);
+  opacity: 0.8; /* Slightly faded overall */
+}
+
+/* 3rd Place and below: Standard Neutral (White in Dark, Gray in Light) */
+.rank-3, .rank-other {
+  background: var(--bg-hover);
+  color: var(--text-700); /* Uses standard text color (Gray in light, Light Gray in dark) */
+  border: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 11px;
+  box-shadow: none;
+}
+
+/* Hover effect for rows */
+tbody tr:hover .rank-badge {
+  transform: scale(1.1);
+}
