@@ -1,43 +1,72 @@
 <index.html>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tool Use - SLP Benchmark — Car assistant - Robot </title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-    rel="stylesheet">
+  <title>SenLM — Function Calling Benchmark</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./static/style/style.css">
 </head>
-
 <body>
+
   <header class="header">
-  <h1 class="page-title">SenLM Function Calling<br><span>Fast · Accurate · Affordable</span></h1>
-  <p class="subtitle">Production-ready tool use at ~100× lower cost · Real-time response · Enterprise accuracy</p>
-  <div class="legend">
-    <div class="legend-item">
-      <div class="legend-dot legend-best"></div> Best value
+    <div class="header-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Small Language Models · Built for Production
     </div>
-    <div class="legend-item">
-      <div class="legend-dot legend-second"></div> 2nd best
+
+    <div class="brand-lockup">
+      <span class="brand-name">SenLM</span>
+      <span class="brand-tagline-big">
+        <strong>Ultra-fast, enterprise accuracy.</strong><br>
+        Production-ready function calling at a fraction of the cost.
+      </span>
     </div>
-  </div>
-</header>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value"><span>~100</span>×</span>
+        <span class="hero-stat-label">Lower cost</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value"><span>93</span>%+</span>
+        <span class="hero-stat-label">Benchmark accuracy</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value"><span>0.8</span>B</span>
+        <span class="hero-stat-label">Smallest model</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value"><span>14</span></span>
+        <span class="hero-stat-label">Tool types</span>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="benchmark-label">Function Calling Leaderboard</div>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-dot legend-best"></div> Best
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot legend-second"></div> 2nd best
+        </div>
+      </div>
+    </div>
+  </header>
 
   <nav class="nav-tabs">
     <button class="tab-btn active" onclick="switchTab('vivi1k')">Vivi Smart 1k</button>
     <button class="tab-btn" onclick="switchTab('vivi6k')">Vivi Smart 6k4</button>
     <button class="tab-btn" onclick="switchTab('viviglob')">Vivi Global 1k6</button>
-    <!-- <button class="tab-btn" onclick="switchTab('chart')">Visual Chart</button> -->
   </nav>
 
   <main class="main">
     <div id="tab-vivi1k" class="tab-panel active">
       <div class="section-header">
-        <div class="section-title">📊 Vivi thông minh — 1k Sample</div>
-        <div class="section-meta">Bản mới nhất tháng 3 · 14 tools · Click column headers to sort</div>
+        <div class="section-title">Vivi thông minh — 1k Sample</div>
+        <div class="section-meta">Bản mới nhất tháng 3 · 14 tools · Click headers to sort</div>
       </div>
       <div class="table-wrap">
         <table>
@@ -54,10 +83,9 @@
       </div>
     </div>
 
-    <!-- Vivi Smart 6k4 Table -->
     <div id="tab-vivi6k" class="tab-panel">
       <div class="section-header">
-        <div class="section-title">📊 Vivi thông minh — 6k4 Sample</div>
+        <div class="section-title">Vivi thông minh — 6k4 Sample</div>
         <div class="section-meta">Bản input 8 tools tháng 2</div>
       </div>
       <div class="table-wrap">
@@ -76,10 +104,9 @@
       </div>
     </div>
 
-    <!-- Vivi Global English Table -->
     <div id="tab-viviglob" class="tab-panel">
       <div class="section-header">
-        <div class="section-title">📊 Vivi Global English — 1k6</div>
+        <div class="section-title">Vivi Global English — 1k6</div>
       </div>
       <div class="table-wrap">
         <table>
@@ -100,7 +127,6 @@
 
   <script src="./static/js/app.js"></script>
 </body>
-
 </html>
 </index.html>
 
@@ -132,469 +158,531 @@
 </data/code/repo_structure.yaml>
 
 <static/js/app.js>
-// Filtered data - only 3 models, no variants
 const data1k = [
     { model:'SenFC 0.8B', single:89.49, noasst:90.76, full:92.41, senlm:false },
-    { model:'SenFC 4B', single:81.23, noasst:9.73, full:90.08, senlm:false },
-    { model:'GPT 4.1', single:65.08, noasst:72.00, full:null, senlm:false }
+    { model:'SenFC 4B',   single:81.23, noasst:9.73,  full:90.08, senlm:false },
+    { model:'GPT 4.1',    single:65.08, noasst:72.00, full:null,   senlm:false }
 ];
 
-const data6k = [ 
+const data6k = [
     { model:'SenFC 0.8B', overall:91.43, tool:85.98, nocall:96.86, arg:42.82, senlm:false },
-    { model:'SenFC 4B', overall:91.94, tool:87.32, nocall:96.55, arg:56.04, senlm:false },
-    { model:'GPT-4.1', overall:93.46, tool:89.64, nocall:97.28, arg:44.47, senlm:false }
+    { model:'SenFC 4B',   overall:91.94, tool:87.32, nocall:96.55, arg:56.04, senlm:false },
+    { model:'GPT-4.1',    overall:93.46, tool:89.64, nocall:97.28, arg:44.47, senlm:false }
 ];
 
-const dataGlob = [ 
+const dataGlob = [
     { model:'SenFC 0.8B', overall:86.68, tool:95.02, nocall:32.09, arg:48.12, senlm:false },
-    { model:'SenFC 4B', overall:90.38, tool:90.19, nocall:91.63, arg:57.78, senlm:false },
-    { model:'GPT-4.1', overall:86.74, tool:89.41, nocall:69.30, arg:51.10, senlm:false }
+    { model:'SenFC 4B',   overall:90.38, tool:90.19, nocall:91.63, arg:57.78, senlm:false },
+    { model:'GPT-4.1',    overall:86.74, tool:89.41, nocall:69.30, arg:51.10, senlm:false }
 ];
 
-function fmt(v, bestVals, secondVals){ 
-    if(v===null||v===undefined) return '<span class="val-dash">—</span>'; 
-    const pct=v.toFixed(2)+'%'; 
-    let cls='val'; 
-    const vr=Math.round(v*100); 
-    if(bestVals.has(vr)) cls+=' best'; 
-    else if(secondVals.has(vr)) cls+=' second'; 
-    return `<span class="${cls}">${pct}</span>`; 
+function fmt(v, bestVals, secondVals) {
+    if (v === null || v === undefined) return '<span class="val-dash">—</span>';
+    const pct = v.toFixed(2) + '%';
+    let cls = 'val';
+    const vr = Math.round(v * 100);
+    if (bestVals.has(vr))   cls += ' best';
+    else if (secondVals.has(vr)) cls += ' second';
+    return `<span class="${cls}">${pct}</span>`;
 }
 
-function getBestSecond(rows,key){ 
-    const vals=rows.map(r=>r[key]).filter(v=>v!=null); 
-    const sorted=[...new Set(vals)].sort((a,b)=>b-a); 
+function getBestSecond(rows, key) {
+    const vals   = rows.map(r => r[key]).filter(v => v != null);
+    const sorted = [...new Set(vals)].sort((a, b) => b - a);
     return {
-        best:new Set([Math.round((sorted[0]||0)*100)]), 
-        second:new Set(sorted.length > 1 ? [Math.round((sorted[1]||0)*100)] : [])
-    }; 
+        best:   new Set([Math.round((sorted[0] || 0) * 100)]),
+        second: new Set(sorted.length > 1 ? [Math.round((sorted[1] || 0) * 100)] : [])
+    };
 }
 
-// Sorting state (descending by default)
-let sort1kState={key:'single',dir:'desc'}, 
-    sort6kState={key:'overall',dir:'desc'}, 
-    sortGlobState={key:'overall',dir:'desc'};
+let sort1kState   = { key: 'single',  dir: 'desc' };
+let sort6kState   = { key: 'overall', dir: 'desc' };
+let sortGlobState = { key: 'overall', dir: 'desc' };
 
-function sort1k(k){ 
-    sort1kState.key===k ? sort1kState.dir=sort1kState.dir==='desc'?'asc':'desc' : (sort1kState.key=k,sort1kState.dir='desc'); 
-    render1k(); 
+function sort1k(k) {
+    sort1kState.key === k
+        ? sort1kState.dir = sort1kState.dir === 'desc' ? 'asc' : 'desc'
+        : (sort1kState.key = k, sort1kState.dir = 'desc');
+    render1k();
 }
-function sort6k(k){ 
-    sort6kState.key===k ? sort6kState.dir=sort6kState.dir==='desc'?'asc':'desc' : (sort6kState.key=k,sort6kState.dir='desc'); 
-    render6k(); 
+function sort6k(k) {
+    sort6kState.key === k
+        ? sort6kState.dir = sort6kState.dir === 'desc' ? 'asc' : 'desc'
+        : (sort6kState.key = k, sort6kState.dir = 'desc');
+    render6k();
 }
-function sortGlob(k){ 
-    sortGlobState.key===k ? sortGlobState.dir=sortGlobState.dir==='desc'?'asc':'desc' : (sortGlobState.key=k,sortGlobState.dir='desc'); 
-    renderGlob(); 
-}
-
-// Render functions - Variant column removed
-function render1k(){ 
-    const keys=['single','noasst','full']; 
-    const bests=keys.map(k=>getBestSecond(data1k,k)); 
-    const sorted=[...data1k].sort((a,b)=>{
-        const av=a[sort1kState.key], bv=b[sort1kState.key]; 
-        if(av==null) return 1; 
-        if(bv==null) return -1; 
-        return sort1kState.dir==='desc' ? bv-av : av-bv;
-    }); 
-    document.getElementById('table1k-body').innerHTML=sorted.map(r=>{
-        const mcls=r.senlm?'td-model senlm':'td-model'; 
-        return `<tr>
-            <td class="${mcls}">${r.model}</td>
-            ${keys.map((k,i)=>`<td>${fmt(r[k], bests[i].best, bests[i].second)}</td>`).join('')}
-        </tr>`;
-    }).join('');
+function sortGlob(k) {
+    sortGlobState.key === k
+        ? sortGlobState.dir = sortGlobState.dir === 'desc' ? 'asc' : 'desc'
+        : (sortGlobState.key = k, sortGlobState.dir = 'desc');
+    renderGlob();
 }
 
-function render6k(){ 
-    const keys=['overall','tool','nocall','arg']; 
-    const bests=keys.map(k=>getBestSecond(data6k,k)); 
-    const sorted=[...data6k].sort((a,b)=>{
-        const av=a[sort6kState.key], bv=b[sort6kState.key]; 
-        if(av==null) return 1; 
-        if(bv==null) return -1; 
-        return sort6kState.dir==='desc' ? bv-av : av-bv;
-    }); 
-    document.getElementById('table6k-body').innerHTML=sorted.map(r=>{
-        const mcls=r.senlm?'td-model senlm':'td-model'; 
-        return `<tr>
-            <td class="${mcls}">${r.model}</td>
-            ${keys.map((k,i)=>`<td>${fmt(r[k], bests[i].best, bests[i].second)}</td>`).join('')}
-        </tr>`;
-    }).join('');
-}
-
-function renderGlob(){ 
-    const keys=['overall','tool','nocall','arg']; 
-    const bests=keys.map(k=>getBestSecond(dataGlob,k)); 
-    const sorted=[...dataGlob].sort((a,b)=>{
-        const av=a[sortGlobState.key], bv=b[sortGlobState.key]; 
-        if(av==null) return 1; 
-        if(bv==null) return -1; 
-        return sortGlobState.dir==='desc' ? bv-av : av-bv;
-    }); 
-    document.getElementById('tableglob-body').innerHTML=sorted.map(r=>{
-        const mcls=r.senlm?'td-model senlm':'td-model'; 
-        return `<tr>
-            <td class="${mcls}">${r.model}</td>
-            ${keys.map((k,i)=>`<td>${fmt(r[k], bests[i].best, bests[i].second)}</td>`).join('')}
-        </tr>`;
-    }).join('');
-}
-
-// Chart functions - variant removed from labels
-let chartDataset='1k', chartMetric='single';
-function getChartData(){ 
-    if(chartDataset==='1k') return data1k.filter(r=>r[chartMetric]!=null).map(r=>({
-        label:r.model, val:r[chartMetric], senlm:r.senlm
-    })); 
-    if(chartDataset==='6k') return data6k.filter(r=>r[chartMetric]!=null).map(r=>({
-        label:r.model, val:r[chartMetric], senlm:r.senlm
-    })); 
-    return dataGlob.filter(r=>r[chartMetric]!=null).map(r=>({
-        label:r.model, val:r[chartMetric], senlm:r.senlm
-    })); 
-}
-
-function renderChart(){ 
-    const rows=getChartData(); 
-    const sorted=[...rows].sort((a,b)=>b.val-a.val); 
-    const bestVal=sorted[0]?.val; 
-    const container=document.getElementById('bar-chart'); 
-    container.innerHTML=sorted.map((r,i)=>{
-        const isBest=r.val===bestVal; 
-        const fillCls=r.senlm?'bar-fill senlm':isBest?'bar-fill best-bar':'bar-fill'; 
-        const labelCls=r.senlm?'bar-label is-senlm':'bar-label'; 
-        return `<div class="bar-row" style="animation-delay:${i*30}ms">
-            <span class="${labelCls}" title="${r.label}">${r.label}</span>
-            <div class="bar-track">
-                <div class="${fillCls}" data-pct="${r.val/100}" style="width:0"></div>
-            </div>
-            <span class="bar-pct">${r.val.toFixed(1)}%</span>
-        </div>`;
-    }).join(''); 
-    requestAnimationFrame(()=>{
-        document.querySelectorAll('.bar-fill').forEach(el=>{
-            setTimeout(()=>{el.style.width=(parseFloat(el.dataset.pct)*100)+'%';},80);
-        });
+function renderRows(data, state, keys, tbodyId) {
+    const bests  = keys.map(k => getBestSecond(data, k));
+    const sorted = [...data].sort((a, b) => {
+        const av = a[state.key], bv = b[state.key];
+        if (av == null) return  1;
+        if (bv == null) return -1;
+        return state.dir === 'desc' ? bv - av : av - bv;
     });
+
+    document.getElementById(tbodyId).innerHTML = sorted.map((r, i) => {
+        const mcls    = r.senlm ? 'td-model senlm' : 'td-model';
+        const rankBadge = i === 0 ? `<span class="rank-badge">1</span>` : '';
+        return `<tr>
+            <td><div class="${mcls}">${rankBadge}${r.model}</div></td>
+            ${keys.map((k, ki) => `<td>${fmt(r[k], bests[ki].best, bests[ki].second)}</td>`).join('')}
+        </tr>`;
+    }).join('');
 }
 
-function setChartDataset(ds,metric){
-    chartDataset=ds; chartMetric=metric; 
-    document.querySelectorAll('#chart-dataset-sel .metric-btn').forEach(b=>b.classList.remove('active')); 
-    event.target.classList.add('active'); 
-    const labels={
-        '1k:single':'Vivi Smart 1k — Single-turn',
-        '1k:full':'Vivi Smart 1k — Multi-turn (full history)',
-        '6k:overall':'Vivi Smart 6k4 — Overall Tool Selection',
-        '6k:arg':'Vivi Smart 6k4 — Argument Accuracy',
-        'glob:overall':'Vivi Global 1k6 — Overall Tool Selection',
-        'glob:arg':'Vivi Global 1k6 — Argument Accuracy',
-    }; 
-    document.getElementById('chart-label').textContent=labels[`${ds}:${metric}`]||''; 
-    renderChart(); 
+function render1k()   { renderRows(data1k,   sort1kState,   ['single','noasst','full'],           'table1k-body'); }
+function render6k()   { renderRows(data6k,   sort6kState,   ['overall','tool','nocall','arg'],     'table6k-body'); }
+function renderGlob() { renderRows(dataGlob, sortGlobState, ['overall','tool','nocall','arg'],     'tableglob-body'); }
+
+function switchTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
 }
 
-function switchTab(id){
-    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active')); 
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); 
-    document.getElementById('tab-'+id).classList.add('active'); 
-    event.target.classList.add('active'); 
-    if(id==='chart') renderChart();
-}
-
-// Initial render
 render1k(); render6k(); renderGlob();
-
-
 </static/js/app.js>
 
 <static/style/style.css>
-/* =========================================
-   MODERN SaaS LEADERBOARD THEME
-   Bold Header • Clean White Tables • Top Model Highlight
-   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap');
 
+/* ══════════════════════════════════════════
+   MODERN DARK / NEON TECH THEME
+══════════════════════════════════════════ */
 :root {
-  /* Header & Accent */
-  --header-bg: linear-gradient(135deg, #1D4ED8 0%, #6D28D9 100%);
-  --accent: #2563EB;
-  --accent-light: #EFF6FF;
-  --accent-glow: rgba(37, 99, 235, 0.25);
+  /* Dark tech backgrounds */
+  --bg-page:      #050505;
+  --bg-section:   #0a0a0a;
+  --bg-card:      #111111;
+  --bg-row-alt:   #0e0e0e;
+  --bg-hover:     #1a1a1a;
+  --bg-thead:     #0d0d0d;
 
-  /* Layout & Backgrounds */
-  --bg-main: #F8FAFC;
-  --bg-card: #FFFFFF;
-  --bg-hover: #F1F5F9;
+  /* Primary Accent: Electric Cyan / Blue */
+  --accent:       #00d2ff;
+  --accent-warm:  #3a7bd5;
+  --accent-soft:  rgba(0, 210, 255, 0.05);
+  --accent-mid:   rgba(0, 210, 255, 0.2);
+  --accent-text:  #e0f7fa;
 
-  /* Borders & Shadows */
-  --border: #E2E8F0;
-  --border-soft: rgba(226, 232, 240, 0.6);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.08);
+  /* Ranking/Status Colors */
+  --best-bg:      #00d2ff;       
+  --best-fg:      #002233;       
+  
+  --second-bg:    #003344;       
+  --second-fg:    #00d2ff;       
+  --second-bdr:   #005577;       
 
-  /* Typography */
-  --text-dark: #0F172A;
-  --text-muted: #64748B;
-  --text-light: #FFFFFF;
+  /* Text Colors */
+  --text-900:     #ffffff;       
+  --text-700:     #a3a3a3;       
+  --text-500:     #737373;       
+  --text-300:     #525252;       
+
+  /* Borders */
+  --border:       #1f1f1f;
+  --border-mid:   #2a2a2a;
+  --border-strong:#404040;
+
+  /* Shadows */
+  --shadow-xs:    0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-sm:    0 4px 12px rgba(0, 0, 0, 0.6);
+  --shadow-md:    0 8px 32px rgba(0, 0, 0, 0.7);
+
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-pill: 999px;
+
+  --font-brand: 'Caveat', cursive;
+  --font-body:  'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: var(--bg-main);
-  color: var(--text-dark);
+  font-family: var(--font-body);
+  background: var(--bg-page);
+  color: var(--text-700);
   line-height: 1.6;
   font-size: 15px;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* =========================================
-   HEADER (Bold Background + White Text)
-   ========================================= */
+/* HERO */
 .header {
-  background: var(--header-bg);
-  color: var(--text-light);
-  padding: 56px 24px 40px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle geometric glow behind title */
+/* Glowing orb background effect */
 .header::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -10%;
-  width: 120%;
-  height: 200%;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
+  top: -100px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse at top, rgba(0, 210, 255, 0.12), transparent 70%);
   pointer-events: none;
 }
 
-.page-title {
-  font-size: clamp(28px, 5vw, 44px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: #FFFFFF;
-  margin-bottom: 10px;
-  position: relative;
-}
-
-.page-title span {
-  display: block;
-  margin-top: 8px;
-  font-weight: 700;
-  color: #FFFFFF;
-  letter-spacing: 0.02em;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.15);
-}
-
-.subtitle {
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.05em;
+.header-eyebrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  margin-bottom: 24px;
+  color: var(--text-500);
   position: relative;
+  z-index: 1;
+}
+
+.eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  display: inline-block;
+}
+
+.brand-lockup { 
+  padding: 24px 0 0; 
+  position: relative;
+  z-index: 1;
+}
+
+.brand-name {
+  font-family: var(--font-brand);
+  font-size: clamp(60px, 10vw, 96px);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #00d2ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+  display: inline-block;
+  text-shadow: 0 0 40px rgba(0, 210, 255, 0.2);
+}
+
+.brand-tagline-big {
+  display: block;
+  font-size: clamp(16px, 2.6vw, 22px);
+  font-weight: 300;
+  color: var(--text-700);
+  letter-spacing: -0.01em;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+.brand-tagline-big strong {
+  font-weight: 600;
+  color: var(--text-900);
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 36px auto 0;
+  max-width: 620px;
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-stat {
+  flex: 1;
+  padding: 20px 16px;
+  text-align: center;
+  border-right: 1px solid var(--border-mid);
+}
+.hero-stat:last-child { border-right: none; }
+
+.hero-stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-900);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  display: block;
+}
+.hero-stat-value span { color: var(--accent); }
+
+.hero-stat-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--text-500);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-top: 8px;
+  display: block;
+}
+
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0 26px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.benchmark-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-500);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .legend {
-  display: inline-flex;
+  display: flex;
   gap: 18px;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 13px;
-  font-weight: 600;
-  position: relative;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-500);
+  align-items: center;
 }
 
-.legend-item { display: flex; align-items: center; gap: 8px; }
-.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
-.legend-best { background: #FBBF24; }
-.legend-second { background: #94A3B8; }
+.legend-item { display: flex; align-items: center; gap: 7px; }
+.legend-dot  { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.legend-best   { background: var(--best-bg); box-shadow: 0 0 6px var(--best-bg); }
+.legend-second { background: var(--second-bdr); }
 
-/* =========================================
-   NAVIGATION TABS
-   ========================================= */
+/* NAV */
 .nav-tabs {
   display: flex;
   justify-content: center;
   gap: 8px;
-  padding: 20px 16px 0;
+  padding: 32px 16px 0;
   max-width: 900px;
   margin: 0 auto;
 }
 
 .tab-btn {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 10px 22px;
-  border: none;
-  background: transparent;
-  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 24px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-500);
   cursor: pointer;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   transition: all 0.2s ease;
 }
 
-.tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+.tab-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-mid);
+  color: var(--text-900);
+}
+
 .tab-btn.active {
-  background: var(--accent);
-  color: #FFFFFF;
-  box-shadow: 0 4px 12px var(--accent-glow);
-  transform: translateY(-1px);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
 }
 
-/* =========================================
-   MAIN CONTENT & TABLES
-   ========================================= */
+/* MAIN */
 .main {
-  max-width: 1200px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 32px 16px 64px;
+  padding: 32px 16px 80px;
 }
 
-.tab-panel { display: none; animation: fadeSlide 0.3s ease-out; }
+.tab-panel { display: none; animation: fadeUp 0.3s ease-out; }
 .tab-panel.active { display: block; }
-@keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 18px;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed var(--border);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
 }
 
-.section-title { font-size: 20px; font-weight: 700; color: var(--text-dark); letter-spacing: -0.01em; }
-.section-meta { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-900);
+  letter-spacing: -0.01em;
+}
 
+.section-meta {
+  font-size: 12px;
+  color: var(--text-500);
+  font-weight: 400;
+}
+
+/* TABLE */
 .table-wrap {
   background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-lg);
   box-shadow: var(--shadow-md);
   overflow: hidden;
   margin-bottom: 32px;
 }
 
-table { width: 100%; border-collapse: collapse; min-width: 700px; }
-thead tr { background: #F8FAFC; border-bottom: 2px solid var(--border); }
+table { width: 100%; border-collapse: collapse; min-width: 640px; }
+
+thead tr {
+  background: var(--bg-thead);
+  border-bottom: 1px solid var(--border-mid);
+}
+
 th {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  padding: 16px 20px;
+  letter-spacing: 0.1em;
+  color: var(--text-500);
+  padding: 16px 24px;
   text-align: left;
   white-space: nowrap;
 }
-th.sortable { cursor: pointer; user-select: none; transition: color 0.15s, background 0.15s; }
-th.sortable:hover { color: var(--accent); background: rgba(37,99,235,0.04); }
+
+th.sortable { cursor: pointer; user-select: none; transition: color 0.15s; }
+th.sortable:hover { color: var(--accent); }
 th:not(:first-child) { text-align: right; }
 
 tbody tr {
-  border-bottom: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border);
   transition: background 0.15s ease;
 }
+tbody tr:nth-child(even) { background: var(--bg-row-alt); }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--bg-hover); }
 
-td { padding: 16px 20px; font-size: 15px; vertical-align: middle; color: var(--text-dark); }
+/* Highlight first row (Rank 1) */
+tbody tr:first-child {
+  background: linear-gradient(90deg, var(--accent-soft) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border-strong);
+}
+tbody tr:first-child:hover { background: var(--accent-mid); }
+
+td {
+  padding: 16px 24px;
+  font-size: 14px;
+  vertical-align: middle;
+  color: var(--text-700);
+}
 td:not(:first-child) { text-align: right; }
 
-.td-model { font-weight: 700; font-size: 16px; color: var(--text-dark); letter-spacing: -0.01em; }
-.td-model.senlm { color: var(--accent); font-weight: 800; }
-
-/* =========================================
-   TOP MODEL HIGHLIGHT (Bold Accent)
-   ========================================= */
-tbody tr:first-child {
-  background: linear-gradient(90deg, var(--accent-light) 0%, #FFFFFF 40%);
-  border-left: 4px solid var(--accent);
-  box-shadow: inset 4px 0 0 var(--accent);
+.td-model {
+  font-weight: 500;
+  font-size: 14.5px;
+  color: var(--text-900);
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
+.td-model.senlm { color: var(--accent); }
+
 tbody tr:first-child .td-model {
-  color: var(--accent);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  color: var(--text-900);
+  font-weight: 600;
 }
 
-/* =========================================
-   METRIC BADGES
-   ========================================= */
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--accent);
+  color: var(--best-fg);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+}
+
+/* BADGES */
 .val {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 78px;
+  min-width: 76px;
   padding: 6px 14px;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--text-dark);
-  background: #F8FAFC;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--text-700);
+  background: var(--bg-page);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-pill);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
-.val:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
 
 .val.best {
-  background: var(--accent);
-  color: #FFFFFF;
+  background: var(--best-bg);
+  color: var(--best-fg);
   border-color: transparent;
-  font-weight: 700;
-  box-shadow: 0 4px 12px var(--accent-glow);
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
 }
-.val.second { background: #F1F5F9; color: var(--text-dark); border-color: var(--border); font-weight: 700; }
-.val-dash { color: var(--text-muted); font-weight: 500; }
 
-/* =========================================
-   CHART & SELECTORS (Optional)
-   ========================================= */
-.chart-section {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  margin-bottom: 32px;
+.val.second {
+  background: var(--second-bg);
+  color: var(--second-fg);
+  border-color: var(--second-bdr);
+  font-weight: 600;
 }
-.metric-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-.metric-btn {
-  font-family: inherit; font-size: 13px; font-weight: 600; padding: 8px 16px;
-  border: 1px solid var(--border); background: transparent; color: var(--text-muted);
-  border-radius: 8px; cursor: pointer; transition: all 0.15s;
-}
-.metric-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-.metric-btn.active { background: var(--accent); border-color: var(--accent); color: #FFF; box-shadow: 0 3px 10px var(--accent-glow); }
 
-/* Responsive */
+.val-dash { color: var(--text-500); }
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .header { padding: 40px 16px 32px; }
-  .main { padding: 24px 12px 48px; }
-  .nav-tabs { gap: 6px; overflow-x: auto; justify-content: flex-start; padding: 12px 8px 0; }
-  .tab-btn { padding: 8px 16px; font-size: 13px; }
-  .section-header { flex-direction: column; gap: 6px; }
-  th, td { padding: 12px 14px; font-size: 14px; }
-  .val { min-width: 70px; padding: 5px 10px; font-size: 13px; }
+  .header { padding: 0 12px; }
+  .hero-stats { flex-direction: column; border-radius: var(--r-md); }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--border-mid); padding: 16px; }
+  .hero-stat:last-child { border-bottom: none; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; padding: 16px 0 20px; }
+  .main { padding: 24px 12px 56px; }
+  .nav-tabs { overflow-x: auto; justify-content: flex-start; padding: 24px 8px 0; gap: 6px; }
+  .tab-btn { padding: 8px 16px; font-size: 12.5px; white-space: nowrap; }
+  .section-header { flex-direction: column; gap: 8px; }
+  th, td { padding: 12px 16px; font-size: 13px; }
+  .val { min-width: 64px; padding: 4px 10px; font-size: 12px; }
 }
 </static/style/style.css>
 
