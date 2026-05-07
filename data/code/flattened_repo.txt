@@ -26,15 +26,15 @@
 
     <div class="hero-stats">
       <div class="hero-stat">
-        <span class="hero-stat-value"><span>~100</span>×</span>
+        <span class="hero-stat-value"><span>~100×</span></span>
         <span class="hero-stat-label">Lower cost</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value"><span>93</span>%+</span>
+        <span class="hero-stat-value"><span>~90%</span></span>
         <span class="hero-stat-label">Benchmark accuracy</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-value"><span>0.8</span>B</span>
+        <span class="hero-stat-value"><span>0.8B</span></span>
         <span class="hero-stat-label">Smallest model</span>
       </div>
       <div class="hero-stat">
@@ -319,15 +319,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-/* HERO */
+/* 1. Ensure the Header allows content to stretch */
 .header {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border);
-  padding: 0 24px;
+  /* Increase horizontal padding to give the logo room to breathe */
+  padding: 0 40px; 
   text-align: center;
   position: relative;
-  overflow: hidden;
+  /* CRITICAL: Allow overflow so the M isn't clipped by the header edge */
+  overflow: visible; 
+  min-height: 300px; /* Ensure enough vertical space */
 }
 
 /* Glowing orb background effect */
@@ -339,6 +341,7 @@ body {
   width: 600px; height: 300px;
   background: radial-gradient(ellipse at top, rgba(0, 210, 255, 0.12), transparent 70%);
   pointer-events: none;
+  
 }
 
 .header-eyebrow {
@@ -364,25 +367,53 @@ body {
   display: inline-block;
 }
 
+
+
 .brand-lockup { 
-  padding: 24px 0 0; 
+  padding: 40px 0 20px; 
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  
+  /* CRITICAL: Add extra vertical padding to ensure the top of the M isn't clipped */
+  padding-top: 50px; 
+  padding-bottom: 30px;
+  
+  /* Ensure no overflow clipping from parent */
+  overflow: visible; 
 }
 
 .brand-name {
   font-family: var(--font-brand);
-  font-size: clamp(60px, 10vw, 96px);
+  font-size: clamp(50px, 8vw, 90px); 
   font-weight: 700;
   background: linear-gradient(135deg, #ffffff 0%, #00d2ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: var(--accent);
-  letter-spacing: -0.01em;
-  line-height: 0.92;
-  display: inline-block;
-  text-shadow: 0 0 40px rgba(0, 210, 255, 0.2);
+  
+  letter-spacing: 0; 
+  
+  /* CRITICAL: Increase line-height to give the tall parts of the M room */
+  line-height: 1.4; 
+  
+  display: block; 
+  width: fit-content;
+  margin: 0 auto; 
+  
+  text-shadow: none;
+  
+  /* Ensure the element itself doesn't clip its own content */
+  overflow: visible;
+  
+  /* Optional: Slightly nudge the text up if it's sitting too low in the box */
+  transform: translateY(-2px);
 }
+
 
 .brand-tagline-big {
   display: block;

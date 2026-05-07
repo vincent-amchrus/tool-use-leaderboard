@@ -1,47 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Sora:wght@300;400;500;600;700&display=swap');
 
 /* ══════════════════════════════════════════
-   MODERN DARK / NEON TECH THEME
+   MODERN LIGHT / PREMIUM LAB THEME
 ══════════════════════════════════════════ */
 :root {
-  /* Dark tech backgrounds */
-  --bg-page:      #050505;
-  --bg-section:   #0a0a0a;
-  --bg-card:      #111111;
-  --bg-row-alt:   #0e0e0e;
-  --bg-hover:     #1a1a1a;
-  --bg-thead:     #0d0d0d;
+  /* Light Backgrounds */
+  --bg-page:      #f8fafc;       /* Very light cool gray */
+  --bg-section:   #ffffff;
+  --bg-card:      #ffffff;
+  --bg-row-alt:   #fcfdfe;
+  --bg-hover:     #f1f5f9;
+  --bg-thead:     #f8fafc;
 
-  /* Primary Accent: Electric Cyan / Blue */
-  --accent:       #00d2ff;
-  --accent-warm:  #3a7bd5;
-  --accent-soft:  rgba(0, 210, 255, 0.05);
-  --accent-mid:   rgba(0, 210, 255, 0.2);
-  --accent-text:  #e0f7fa;
+  /* Primary Accent: Deep Royal Blue & Indigo */
+  --accent:       #2563eb;       /* Royal Blue */
+  --accent-warm:  #4f46e5;       /* Indigo */
+  --accent-soft:  rgba(37, 99, 235, 0.06);
+  --accent-mid:   rgba(37, 99, 235, 0.15);
+  --accent-text:  #1e40af;
 
   /* Ranking/Status Colors */
-  --best-bg:      #00d2ff;       
-  --best-fg:      #002233;       
+  --best-bg:      #2563eb;       /* Solid Blue */
+  --best-fg:      #ffffff;       /* White Text */
   
-  --second-bg:    #003344;       
-  --second-fg:    #00d2ff;       
-  --second-bdr:   #005577;       
+  --second-bg:    #eff6ff;       /* Light Blue Tint */
+  --second-fg:    #1e40af;       /* Dark Blue Text */
+  --second-bdr:   #bfdbfe;       /* Border Blue */
 
   /* Text Colors */
-  --text-900:     #ffffff;       
-  --text-700:     #a3a3a3;       
-  --text-500:     #737373;       
-  --text-300:     #525252;       
+  --text-900:     #0f172a;       /* Slate 900 - Almost Black */
+  --text-700:     #334155;       /* Slate 700 - Dark Gray */
+  --text-500:     #64748b;       /* Slate 500 - Medium Gray */
+  --text-300:     #94a3b8;       /* Slate 300 - Light Gray */
 
   /* Borders */
-  --border:       #1f1f1f;
-  --border-mid:   #2a2a2a;
-  --border-strong:#404040;
+  --border:       #e2e8f0;
+  --border-mid:   #cbd5e1;
+  --border-strong:#94a3b8;
 
-  /* Shadows */
-  --shadow-xs:    0 1px 3px rgba(0, 0, 0, 0.5);
-  --shadow-sm:    0 4px 12px rgba(0, 0, 0, 0.6);
-  --shadow-md:    0 8px 32px rgba(0, 0, 0, 0.7);
+  /* Shadows (Softer, colored shadows for glow) */
+  --shadow-xs:    0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm:    0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-md:    0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+  --shadow-glow:  0 0 20px rgba(37, 99, 235, 0.15);
 
   --r-sm:   8px;
   --r-md:   12px;
@@ -65,29 +66,27 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* 1. Ensure the Header allows content to stretch */
+
+/* 1. Header with Soft Glow */
 .header {
-  background: var(--bg-card);
+  background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);
   border-bottom: 1px solid var(--border);
-  /* Increase horizontal padding to give the logo room to breathe */
   padding: 0 40px; 
   text-align: center;
   position: relative;
-  /* CRITICAL: Allow overflow so the M isn't clipped by the header edge */
   overflow: visible; 
-  min-height: 300px; /* Ensure enough vertical space */
+  min-height: 300px;
 }
 
-/* Glowing orb background effect */
+/* Soft Blue Orb Background Effect */
 .header::before {
   content: '';
   position: absolute;
   top: -100px; left: 50%;
   transform: translateX(-50%);
   width: 600px; height: 300px;
-  background: radial-gradient(ellipse at top, rgba(0, 210, 255, 0.12), transparent 70%);
+  background: radial-gradient(ellipse at top, rgba(37, 99, 235, 0.08), transparent 70%);
   pointer-events: none;
-  
 }
 
 .header-eyebrow {
@@ -109,11 +108,9 @@ body {
   width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft); /* Soft ring instead of neon glow */
   display: inline-block;
 }
-
-
 
 .brand-lockup { 
   padding: 40px 0 20px; 
@@ -124,12 +121,8 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  
-  /* CRITICAL: Add extra vertical padding to ensure the top of the M isn't clipped */
   padding-top: 50px; 
   padding-bottom: 30px;
-  
-  /* Ensure no overflow clipping from parent */
   overflow: visible; 
 }
 
@@ -137,35 +130,28 @@ body {
   font-family: var(--font-brand);
   font-size: clamp(50px, 8vw, 90px); 
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff 0%, #00d2ff 100%);
+  /* Gradient from Dark Blue to Bright Blue */
+  background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: var(--accent);
   
   letter-spacing: 0; 
-  
-  /* CRITICAL: Increase line-height to give the tall parts of the M room */
   line-height: 1.4; 
   
   display: block; 
   width: fit-content;
   margin: 0 auto; 
-  
   text-shadow: none;
-  
-  /* Ensure the element itself doesn't clip its own content */
   overflow: visible;
-  
-  /* Optional: Slightly nudge the text up if it's sitting too low in the box */
   transform: translateY(-2px);
 }
-
 
 .brand-tagline-big {
   display: block;
   font-size: clamp(16px, 2.6vw, 22px);
   font-weight: 300;
-  color: var(--text-700);
+  color: var(--text-500);
   letter-spacing: -0.01em;
   margin-top: 16px;
   line-height: 1.5;
@@ -176,6 +162,7 @@ body {
   color: var(--text-900);
 }
 
+/* Hero Stats - Glassmorphism Card */
 .hero-stats {
   display: flex;
   justify-content: center;
@@ -185,8 +172,9 @@ body {
   border: 1px solid var(--border-mid);
   border-radius: var(--r-lg);
   overflow: hidden;
-  background: rgba(255,255,255,0.02);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
   position: relative;
   z-index: 1;
 }
@@ -195,7 +183,7 @@ body {
   flex: 1;
   padding: 20px 16px;
   text-align: center;
-  border-right: 1px solid var(--border-mid);
+  border-right: 1px solid var(--border);
 }
 .hero-stat:last-child { border-right: none; }
 
@@ -252,8 +240,8 @@ body {
 
 .legend-item { display: flex; align-items: center; gap: 7px; }
 .legend-dot  { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-.legend-best   { background: var(--best-bg); box-shadow: 0 0 6px var(--best-bg); }
-.legend-second { background: var(--second-bdr); }
+.legend-best   { background: var(--best-bg); box-shadow: 0 0 0 3px var(--accent-soft); }
+.legend-second { background: var(--second-bg); border: 1px solid var(--second-bdr); }
 
 /* NAV */
 .nav-tabs {
@@ -276,20 +264,22 @@ body {
   cursor: pointer;
   border-radius: var(--r-pill);
   transition: all 0.2s ease;
+  box-shadow: var(--shadow-xs);
 }
 
 .tab-btn:hover {
   background: var(--bg-hover);
   border-color: var(--border-mid);
   color: var(--text-900);
+  transform: translateY(-1px);
 }
 
 .tab-btn.active {
-  background: var(--accent-soft);
+  background: var(--accent);
   border-color: var(--accent);
-  color: var(--accent);
+  color: #ffffff;
   font-weight: 600;
-  box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 /* MAIN */
@@ -369,12 +359,12 @@ tbody tr:nth-child(even) { background: var(--bg-row-alt); }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--bg-hover); }
 
-/* Highlight first row (Rank 1) */
+/* Highlight first row (Rank 1) - Subtle Blue Gradient */
 tbody tr:first-child {
-  background: linear-gradient(90deg, var(--accent-soft) 0%, transparent 100%);
-  border-bottom: 1px solid var(--border-strong);
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.04) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border-mid);
 }
-tbody tr:first-child:hover { background: var(--accent-mid); }
+tbody tr:first-child:hover { background: rgba(37, 99, 235, 0.08); }
 
 td {
   padding: 16px 24px;
@@ -392,11 +382,11 @@ td:not(:first-child) { text-align: right; }
   align-items: center;
   gap: 12px;
 }
-.td-model.senlm { color: var(--accent); }
+.td-model.senlm { color: var(--accent); font-weight: 600; }
 
 tbody tr:first-child .td-model {
   color: var(--text-900);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .rank-badge {
@@ -408,9 +398,9 @@ tbody tr:first-child .td-model {
   font-size: 11px;
   font-weight: 700;
   background: var(--accent);
-  color: var(--best-fg);
+  color: #ffffff;
   flex-shrink: 0;
-  box-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
 }
 
 /* BADGES */
@@ -423,11 +413,12 @@ tbody tr:first-child .td-model {
   font-weight: 500;
   font-size: 13px;
   color: var(--text-700);
-  background: var(--bg-page);
-  border: 1px solid var(--border-mid);
+  background: #ffffff;
+  border: 1px solid var(--border);
   border-radius: var(--r-pill);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
+  box-shadow: var(--shadow-xs);
 }
 
 .val.best {
@@ -435,7 +426,7 @@ tbody tr:first-child .td-model {
   color: var(--best-fg);
   border-color: transparent;
   font-weight: 600;
-  box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
 }
 
 .val.second {
@@ -445,13 +436,13 @@ tbody tr:first-child .td-model {
   font-weight: 600;
 }
 
-.val-dash { color: var(--text-500); }
+.val-dash { color: var(--text-300); }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .header { padding: 0 12px; }
   .hero-stats { flex-direction: column; border-radius: var(--r-md); }
-  .hero-stat { border-right: none; border-bottom: 1px solid var(--border-mid); padding: 16px; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--border); padding: 16px; }
   .hero-stat:last-child { border-bottom: none; }
   .hero-bottom { flex-direction: column; align-items: flex-start; padding: 16px 0 20px; }
   .main { padding: 24px 12px 56px; }
