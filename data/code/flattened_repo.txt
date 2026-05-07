@@ -1,0 +1,600 @@
+<index.html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tool Use - SLP Benchmark — Car assistant - Robot </title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./static/style/style.css">
+</head>
+
+<body>
+  <header class="header">
+  <h1 class="page-title">SenLM Function Calling<br><span>Fast · Accurate · Affordable</span></h1>
+  <p class="subtitle">Production-ready tool use at ~100× lower cost · Real-time response · Enterprise accuracy</p>
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot legend-best"></div> Best value
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot legend-second"></div> 2nd best
+    </div>
+  </div>
+</header>
+
+  <nav class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('vivi1k')">Vivi Smart 1k</button>
+    <button class="tab-btn" onclick="switchTab('vivi6k')">Vivi Smart 6k4</button>
+    <button class="tab-btn" onclick="switchTab('viviglob')">Vivi Global 1k6</button>
+    <!-- <button class="tab-btn" onclick="switchTab('chart')">Visual Chart</button> -->
+  </nav>
+
+  <main class="main">
+    <div id="tab-vivi1k" class="tab-panel active">
+      <div class="section-header">
+        <div class="section-title">📊 Vivi thông minh — 1k Sample</div>
+        <div class="section-meta">Bản mới nhất tháng 3 · 14 tools · Click column headers to sort</div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th class="sortable" onclick="sort1k('single')">Single-turn ↕</th>
+              <th class="sortable" onclick="sort1k('noasst')">Multi (no hist) ↕</th>
+              <th class="sortable" onclick="sort1k('full')">Multi (full) ↕</th>
+            </tr>
+          </thead>
+          <tbody id="table1k-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Vivi Smart 6k4 Table -->
+    <div id="tab-vivi6k" class="tab-panel">
+      <div class="section-header">
+        <div class="section-title">📊 Vivi thông minh — 6k4 Sample</div>
+        <div class="section-meta">Bản input 8 tools tháng 2</div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th class="sortable" onclick="sort6k('overall')">Overall ↕</th>
+              <th class="sortable" onclick="sort6k('tool')">Tool-Only ↕</th>
+              <th class="sortable" onclick="sort6k('nocall')">No-Call ↕</th>
+              <th class="sortable" onclick="sort6k('arg')">Argument ↕</th>
+            </tr>
+          </thead>
+          <tbody id="table6k-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Vivi Global English Table -->
+    <div id="tab-viviglob" class="tab-panel">
+      <div class="section-header">
+        <div class="section-title">📊 Vivi Global English — 1k6</div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th class="sortable" onclick="sortGlob('overall')">Overall ↕</th>
+              <th class="sortable" onclick="sortGlob('tool')">Tool-Only ↕</th>
+              <th class="sortable" onclick="sortGlob('nocall')">No-Call ↕</th>
+              <th class="sortable" onclick="sortGlob('arg')">Argument ↕</th>
+            </tr>
+          </thead>
+          <tbody id="tableglob-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="./static/js/app.js"></script>
+</body>
+
+</html>
+</index.html>
+
+<data/code/repo_structure.yaml>
+  - path: /index.html
+    type: file
+  - path: /data
+    type: directory
+    contents:
+    - path: /data/code
+      type: directory
+      contents:
+      - path: /data/code/repo_structure.yaml
+        type: file
+  - path: /static
+    type: directory
+    contents:
+    - path: /static/js
+      type: directory
+      contents:
+      - path: /static/js/app.js
+        type: file
+    - path: /static/style
+      type: directory
+      contents:
+      - path: /static/style/style.css
+        type: file
+
+</data/code/repo_structure.yaml>
+
+<static/js/app.js>
+// Filtered data - only 3 models, no variants
+const data1k = [
+    { model:'SenFC 0.8B', single:89.49, noasst:90.76, full:92.41, senlm:false },
+    { model:'SenFC 4B', single:81.23, noasst:9.73, full:90.08, senlm:false },
+    { model:'GPT 4.1', single:65.08, noasst:72.00, full:null, senlm:false }
+];
+
+const data6k = [ 
+    { model:'SenFC 0.8B', overall:91.43, tool:85.98, nocall:96.86, arg:42.82, senlm:false },
+    { model:'SenFC 4B', overall:91.94, tool:87.32, nocall:96.55, arg:56.04, senlm:false },
+    { model:'GPT-4.1', overall:93.46, tool:89.64, nocall:97.28, arg:44.47, senlm:false }
+];
+
+const dataGlob = [ 
+    { model:'SenFC 0.8B', overall:86.68, tool:95.02, nocall:32.09, arg:48.12, senlm:false },
+    { model:'SenFC 4B', overall:90.38, tool:90.19, nocall:91.63, arg:57.78, senlm:false },
+    { model:'GPT-4.1', overall:86.74, tool:89.41, nocall:69.30, arg:51.10, senlm:false }
+];
+
+function fmt(v, bestVals, secondVals){ 
+    if(v===null||v===undefined) return '<span class="val-dash">—</span>'; 
+    const pct=v.toFixed(2)+'%'; 
+    let cls='val'; 
+    const vr=Math.round(v*100); 
+    if(bestVals.has(vr)) cls+=' best'; 
+    else if(secondVals.has(vr)) cls+=' second'; 
+    return `<span class="${cls}">${pct}</span>`; 
+}
+
+function getBestSecond(rows,key){ 
+    const vals=rows.map(r=>r[key]).filter(v=>v!=null); 
+    const sorted=[...new Set(vals)].sort((a,b)=>b-a); 
+    return {
+        best:new Set([Math.round((sorted[0]||0)*100)]), 
+        second:new Set(sorted.length > 1 ? [Math.round((sorted[1]||0)*100)] : [])
+    }; 
+}
+
+// Sorting state (descending by default)
+let sort1kState={key:'single',dir:'desc'}, 
+    sort6kState={key:'overall',dir:'desc'}, 
+    sortGlobState={key:'overall',dir:'desc'};
+
+function sort1k(k){ 
+    sort1kState.key===k ? sort1kState.dir=sort1kState.dir==='desc'?'asc':'desc' : (sort1kState.key=k,sort1kState.dir='desc'); 
+    render1k(); 
+}
+function sort6k(k){ 
+    sort6kState.key===k ? sort6kState.dir=sort6kState.dir==='desc'?'asc':'desc' : (sort6kState.key=k,sort6kState.dir='desc'); 
+    render6k(); 
+}
+function sortGlob(k){ 
+    sortGlobState.key===k ? sortGlobState.dir=sortGlobState.dir==='desc'?'asc':'desc' : (sortGlobState.key=k,sortGlobState.dir='desc'); 
+    renderGlob(); 
+}
+
+// Render functions - Variant column removed
+function render1k(){ 
+    const keys=['single','noasst','full']; 
+    const bests=keys.map(k=>getBestSecond(data1k,k)); 
+    const sorted=[...data1k].sort((a,b)=>{
+        const av=a[sort1kState.key], bv=b[sort1kState.key]; 
+        if(av==null) return 1; 
+        if(bv==null) return -1; 
+        return sort1kState.dir==='desc' ? bv-av : av-bv;
+    }); 
+    document.getElementById('table1k-body').innerHTML=sorted.map(r=>{
+        const mcls=r.senlm?'td-model senlm':'td-model'; 
+        return `<tr>
+            <td class="${mcls}">${r.model}</td>
+            ${keys.map((k,i)=>`<td>${fmt(r[k], bests[i].best, bests[i].second)}</td>`).join('')}
+        </tr>`;
+    }).join('');
+}
+
+function render6k(){ 
+    const keys=['overall','tool','nocall','arg']; 
+    const bests=keys.map(k=>getBestSecond(data6k,k)); 
+    const sorted=[...data6k].sort((a,b)=>{
+        const av=a[sort6kState.key], bv=b[sort6kState.key]; 
+        if(av==null) return 1; 
+        if(bv==null) return -1; 
+        return sort6kState.dir==='desc' ? bv-av : av-bv;
+    }); 
+    document.getElementById('table6k-body').innerHTML=sorted.map(r=>{
+        const mcls=r.senlm?'td-model senlm':'td-model'; 
+        return `<tr>
+            <td class="${mcls}">${r.model}</td>
+            ${keys.map((k,i)=>`<td>${fmt(r[k], bests[i].best, bests[i].second)}</td>`).join('')}
+        </tr>`;
+    }).join('');
+}
+
+function renderGlob(){ 
+    const keys=['overall','tool','nocall','arg']; 
+    const bests=keys.map(k=>getBestSecond(dataGlob,k)); 
+    const sorted=[...dataGlob].sort((a,b)=>{
+        const av=a[sortGlobState.key], bv=b[sortGlobState.key]; 
+        if(av==null) return 1; 
+        if(bv==null) return -1; 
+        return sortGlobState.dir==='desc' ? bv-av : av-bv;
+    }); 
+    document.getElementById('tableglob-body').innerHTML=sorted.map(r=>{
+        const mcls=r.senlm?'td-model senlm':'td-model'; 
+        return `<tr>
+            <td class="${mcls}">${r.model}</td>
+            ${keys.map((k,i)=>`<td>${fmt(r[k], bests[i].best, bests[i].second)}</td>`).join('')}
+        </tr>`;
+    }).join('');
+}
+
+// Chart functions - variant removed from labels
+let chartDataset='1k', chartMetric='single';
+function getChartData(){ 
+    if(chartDataset==='1k') return data1k.filter(r=>r[chartMetric]!=null).map(r=>({
+        label:r.model, val:r[chartMetric], senlm:r.senlm
+    })); 
+    if(chartDataset==='6k') return data6k.filter(r=>r[chartMetric]!=null).map(r=>({
+        label:r.model, val:r[chartMetric], senlm:r.senlm
+    })); 
+    return dataGlob.filter(r=>r[chartMetric]!=null).map(r=>({
+        label:r.model, val:r[chartMetric], senlm:r.senlm
+    })); 
+}
+
+function renderChart(){ 
+    const rows=getChartData(); 
+    const sorted=[...rows].sort((a,b)=>b.val-a.val); 
+    const bestVal=sorted[0]?.val; 
+    const container=document.getElementById('bar-chart'); 
+    container.innerHTML=sorted.map((r,i)=>{
+        const isBest=r.val===bestVal; 
+        const fillCls=r.senlm?'bar-fill senlm':isBest?'bar-fill best-bar':'bar-fill'; 
+        const labelCls=r.senlm?'bar-label is-senlm':'bar-label'; 
+        return `<div class="bar-row" style="animation-delay:${i*30}ms">
+            <span class="${labelCls}" title="${r.label}">${r.label}</span>
+            <div class="bar-track">
+                <div class="${fillCls}" data-pct="${r.val/100}" style="width:0"></div>
+            </div>
+            <span class="bar-pct">${r.val.toFixed(1)}%</span>
+        </div>`;
+    }).join(''); 
+    requestAnimationFrame(()=>{
+        document.querySelectorAll('.bar-fill').forEach(el=>{
+            setTimeout(()=>{el.style.width=(parseFloat(el.dataset.pct)*100)+'%';},80);
+        });
+    });
+}
+
+function setChartDataset(ds,metric){
+    chartDataset=ds; chartMetric=metric; 
+    document.querySelectorAll('#chart-dataset-sel .metric-btn').forEach(b=>b.classList.remove('active')); 
+    event.target.classList.add('active'); 
+    const labels={
+        '1k:single':'Vivi Smart 1k — Single-turn',
+        '1k:full':'Vivi Smart 1k — Multi-turn (full history)',
+        '6k:overall':'Vivi Smart 6k4 — Overall Tool Selection',
+        '6k:arg':'Vivi Smart 6k4 — Argument Accuracy',
+        'glob:overall':'Vivi Global 1k6 — Overall Tool Selection',
+        'glob:arg':'Vivi Global 1k6 — Argument Accuracy',
+    }; 
+    document.getElementById('chart-label').textContent=labels[`${ds}:${metric}`]||''; 
+    renderChart(); 
+}
+
+function switchTab(id){
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active')); 
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); 
+    document.getElementById('tab-'+id).classList.add('active'); 
+    event.target.classList.add('active'); 
+    if(id==='chart') renderChart();
+}
+
+// Initial render
+render1k(); render6k(); renderGlob();
+
+
+</static/js/app.js>
+
+<static/style/style.css>
+/* =========================================
+   MODERN SaaS LEADERBOARD THEME
+   Bold Header • Clean White Tables • Top Model Highlight
+   ========================================= */
+
+:root {
+  /* Header & Accent */
+  --header-bg: linear-gradient(135deg, #1D4ED8 0%, #6D28D9 100%);
+  --accent: #2563EB;
+  --accent-light: #EFF6FF;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+
+  /* Layout & Backgrounds */
+  --bg-main: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-hover: #F1F5F9;
+
+  /* Borders & Shadows */
+  --border: #E2E8F0;
+  --border-soft: rgba(226, 232, 240, 0.6);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.08);
+
+  /* Typography */
+  --text-dark: #0F172A;
+  --text-muted: #64748B;
+  --text-light: #FFFFFF;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-dark);
+  line-height: 1.6;
+  font-size: 15px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   HEADER (Bold Background + White Text)
+   ========================================= */
+.header {
+  background: var(--header-bg);
+  color: var(--text-light);
+  padding: 56px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle geometric glow behind title */
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 120%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.page-title {
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.page-title span {
+  display: block;
+  margin-top: 8px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+
+.subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.legend {
+  display: inline-flex;
+  gap: 18px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 600;
+  position: relative;
+}
+
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.legend-best { background: #FBBF24; }
+.legend-second { background: #94A3B8; }
+
+/* =========================================
+   NAVIGATION TABS
+   ========================================= */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 16px 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.tab-btn {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 22px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover { background: var(--accent-light); color: var(--accent); }
+.tab-btn.active {
+  background: var(--accent);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   MAIN CONTENT & TABLES
+   ========================================= */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+.tab-panel { display: none; animation: fadeSlide 0.3s ease-out; }
+.tab-panel.active { display: block; }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.section-title { font-size: 20px; font-weight: 700; color: var(--text-dark); letter-spacing: -0.01em; }
+.section-meta { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+.table-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+table { width: 100%; border-collapse: collapse; min-width: 700px; }
+thead tr { background: #F8FAFC; border-bottom: 2px solid var(--border); }
+th {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  padding: 16px 20px;
+  text-align: left;
+  white-space: nowrap;
+}
+th.sortable { cursor: pointer; user-select: none; transition: color 0.15s, background 0.15s; }
+th.sortable:hover { color: var(--accent); background: rgba(37,99,235,0.04); }
+th:not(:first-child) { text-align: right; }
+
+tbody tr {
+  border-bottom: 1px solid var(--border-soft);
+  transition: background 0.15s ease;
+}
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--bg-hover); }
+
+td { padding: 16px 20px; font-size: 15px; vertical-align: middle; color: var(--text-dark); }
+td:not(:first-child) { text-align: right; }
+
+.td-model { font-weight: 700; font-size: 16px; color: var(--text-dark); letter-spacing: -0.01em; }
+.td-model.senlm { color: var(--accent); font-weight: 800; }
+
+/* =========================================
+   TOP MODEL HIGHLIGHT (Bold Accent)
+   ========================================= */
+tbody tr:first-child {
+  background: linear-gradient(90deg, var(--accent-light) 0%, #FFFFFF 40%);
+  border-left: 4px solid var(--accent);
+  box-shadow: inset 4px 0 0 var(--accent);
+}
+tbody tr:first-child .td-model {
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* =========================================
+   METRIC BADGES
+   ========================================= */
+.val {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 78px;
+  padding: 6px 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-dark);
+  background: #F8FAFC;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.val:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+.val.best {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+.val.second { background: #F1F5F9; color: var(--text-dark); border-color: var(--border); font-weight: 700; }
+.val-dash { color: var(--text-muted); font-weight: 500; }
+
+/* =========================================
+   CHART & SELECTORS (Optional)
+   ========================================= */
+.chart-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 32px;
+}
+.metric-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.metric-btn {
+  font-family: inherit; font-size: 13px; font-weight: 600; padding: 8px 16px;
+  border: 1px solid var(--border); background: transparent; color: var(--text-muted);
+  border-radius: 8px; cursor: pointer; transition: all 0.15s;
+}
+.metric-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+.metric-btn.active { background: var(--accent); border-color: var(--accent); color: #FFF; box-shadow: 0 3px 10px var(--accent-glow); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header { padding: 40px 16px 32px; }
+  .main { padding: 24px 12px 48px; }
+  .nav-tabs { gap: 6px; overflow-x: auto; justify-content: flex-start; padding: 12px 8px 0; }
+  .tab-btn { padding: 8px 16px; font-size: 13px; }
+  .section-header { flex-direction: column; gap: 6px; }
+  th, td { padding: 12px 14px; font-size: 14px; }
+  .val { min-width: 70px; padding: 5px 10px; font-size: 13px; }
+}
+</static/style/style.css>
+
