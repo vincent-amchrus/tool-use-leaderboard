@@ -1,20 +1,30 @@
 const data1k = [
-    { model:'Sen-FC 0.8B', single:89.49, noasst:90.76, full:92.41, senlm:false },
+    { model: 'Sen-FC 0.8B', single: 93.58, noasst: 93.0, full: 94.75, senlm: false },
     { model:'Sen-FC 4B',   single:81.23, noasst:9.73,  full:90.08, senlm:false },
     { model:'GPT 4.1',    single:65.08, noasst:72.00, full:null,   senlm:false }
 ];
 
 const data6k = [
-    { model:'Sen-FC 0.8B', overall:91.43, tool:85.98, nocall:96.86, arg:42.82, senlm:false },
+    { model: 'Sen-FC 0.8B', overall: 92.5, tool: 89.96, nocall: 95.03, arg: 48.86, senlm: false },
     { model:'Sen-FC 4B',   overall:91.94, tool:87.32, nocall:96.55, arg:56.04, senlm:false },
     { model:'GPT-4.1',    overall:93.46, tool:89.64, nocall:97.28, arg:44.47, senlm:false }
 ];
 
 const dataGlob = [
-    { model:'Sen-FC 0.8B', overall:86.68, tool:95.02, nocall:32.09, arg:48.12, senlm:false },
+    { model: 'Sen-FC 0.8B', overall: 94.08, tool: 96.73, nocall: 76.74, arg: 46.91, senlm: false },
     { model:'Sen-FC 4B',   overall:90.38, tool:90.19, nocall:91.63, arg:57.78, senlm:false },
     { model:'GPT-4.1',    overall:86.74, tool:89.41, nocall:69.30, arg:51.10, senlm:false }
 ];
+
+
+
+ const data_12k_vi = [
+      { model: 'Sen-FC 0.8B', overall: 97.3, tool: 97.72, nocall: 78.6, arg: 50.52, senlm: false }
+  ];  // 12428 samples from _12k_vi_global_labeled_2502
+
+  const data_13k5_en = [
+      { model: 'Sen-FC 0.8B', overall: 97.92, tool: 98.25, nocall: 77.21, arg: 42.4, senlm: false }
+  ];  // 13490 samples from _13k5_en_global_labeled
 
 function fmt(v, bestVals, secondVals) {
     if (v === null || v === undefined) return '<span class="val-dash">—</span>';
